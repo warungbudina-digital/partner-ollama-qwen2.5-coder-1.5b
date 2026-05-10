@@ -1,0 +1,11 @@
+models:
+  defaults:
+    model:
+      primary: "ollama-qwen-coder-1_5b/qwen2.5-coder:1.5b"
+  providers:
+    ollama-qwen-coder-1_5b:
+      api: "openai-completions"
+      baseUrl: "https://llm-bridge-qwen-coder.example.com/v1"
+      apiKey: "<BRIDGE_API_KEY_SAMA_DENGAN_VPS>"
+      models:
+        "qwen2.5-coder:1.5b": {}
