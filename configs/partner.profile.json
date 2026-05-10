@@ -1,0 +1,55 @@
+{
+  "name": "partner-ollama-qwen2.5-coder-1.5b",
+  "model": "qwen2.5-coder:1.5b",
+  "role": "n8n-code-transform-partner",
+  "stabilityProfile": "google-cloud-shell-free",
+  "promptFile": "prompts/SYSTEM.md",
+  "docs": {
+    "cloudShell": "docs/CLOUD_SHELL_PROFILE.md",
+    "n8nRole": "docs/N8N_ROLE.md"
+  },
+  "runtime": {
+    "ephemeralSessionSafe": true,
+    "heavyDependenciesAllowed": false,
+    "dockerPreferred": false,
+    "localDatabasePreferred": false,
+    "persistentArtifactsAllowed": "small-text-only",
+    "targetRepoFootprintMb": 25,
+    "maxSingleArtifactMb": 10,
+    "tempWorkBudgetMb": 256
+  },
+  "n8n": {
+    "mode": "tool-partner",
+    "expectedInput": [
+      "json",
+      "text",
+      "small-markdown"
+    ],
+    "expectedOutput": [
+      "strict-json",
+      "short-markdown",
+      "plain-text"
+    ],
+    "escalateWhen": [
+      "context too large",
+      "task needs long reasoning",
+      "task requires heavy codebase work",
+      "task needs remote state not provided"
+    ]
+  },
+  "taskFit": {
+    "bestFor": [
+      "generate small JS for n8n Code nodes",
+      "transform JSON payloads",
+      "write regex and parsing helpers",
+      "draft workflow expressions",
+      "produce structured patch suggestions"
+    ],
+    "avoid": [
+      "large framework scaffolding",
+      "heavy repo-wide refactors",
+      "long-form editorial content",
+      "deep market forecasting"
+    ]
+  }
+}
