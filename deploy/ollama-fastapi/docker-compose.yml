@@ -1,0 +1,45 @@
+services:
+  ollama:
+    image: ollama/ollama:0.12.3
+    restart: unless-stopped
+    volumes:
+      - ollama_data:/root/.ollama
+    healthcheck:
+      test: ["CMD-SHELL", "ollama list >/dev/null 2>&1 || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 45s
+
+  api:
+    build:
+      context: ./api
+    restart: unless-stopped
+    depends_on:
+      ollama:
+        condition: service_healthy
+    environment:
+      OLLAMA_URL: http://ollama:11434
+      DEFAULT_MODEL: qwen2.5-coder:1.5b
+      OLLAMA_TIMEOUT: "180"
+      BRIDGE_API_KEY: ${BRIDGE_API_KEY}
+    ports:
+      - "127.0.0.1:8000:8000"
+    healthcheck:
+      test: ["CMD-SHELL", "python -c "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/healthz', timeout=5)" || exit 1"]
+      interval: 20s
+      timeout: 8s
+      retries: 5
+      start_period: 20s
+
+  cloudflared:
+    image: cloudflare/cloudflared:latest
+    restart: unless-stopped
+    depends_on:
+      api:
+        condition: service_healthy
+    command: >
+      tunnel --no-autoupdate run --token ${TUNNEL_TOKEN}
+
+volumes:
+  ollama_data:
