@@ -55,3 +55,18 @@ cat prompts/SYSTEM.md
 ## Catatan
 
 Repo ini sengaja dibuat **tipis**. Di Cloud Shell gratis, kestabilan lebih penting daripada banyak fitur. Simpan logika berat di n8n/OpenClaw atau service remote, bukan di repo partner ini.
+
+
+## Deploy bridge
+
+Repo ini juga sudah punya baseline deploy ala `partner-AI` di:
+
+- `deploy/ollama-fastapi/`
+
+Isi folder itu menyediakan:
+- Docker build untuk FastAPI bridge
+- `docker-compose.yml` untuk Ollama + API + Cloudflared
+- `.env.example`
+- contoh config OpenClaw
+
+Default model deploy untuk repo ini: **qwen2.5-coder:1.5b**
