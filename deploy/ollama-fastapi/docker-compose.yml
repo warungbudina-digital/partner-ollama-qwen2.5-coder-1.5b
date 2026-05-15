@@ -25,19 +25,10 @@ services:
       BRIDGE_API_KEY: ${BRIDGE_API_KEY}
     ports:
       - "127.0.0.1:8000:8000"
-    healthcheck:
-      test: ["CMD-SHELL", "python -c "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/healthz', timeout=5)" || exit 1"]
-      interval: 20s
-      timeout: 8s
-      retries: 5
-      start_period: 20s
 
   cloudflared:
     image: cloudflare/cloudflared:latest
     restart: unless-stopped
-    depends_on:
-      api:
-        condition: service_healthy
     command: >
       tunnel --no-autoupdate run --token ${TUNNEL_TOKEN}
 
