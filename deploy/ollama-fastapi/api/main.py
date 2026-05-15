@@ -12,7 +12,7 @@ from fastapi.responses import JSONResponse, StreamingResponse
 from pydantic import BaseModel, Field
 
 OLLAMA_URL = os.getenv("OLLAMA_URL", "http://ollama:11434")
-DEFAULT_MODEL = os.getenv("DEFAULT_MODEL", "qwen2.5-coder:1.5b")
+DEFAULT_MODEL = os.getenv("DEFAULT_MODEL", "qwen2.5-coder:3b")
 TIMEOUT_SECONDS = float(os.getenv("OLLAMA_TIMEOUT", "120"))
 BRIDGE_API_KEY = os.getenv("BRIDGE_API_KEY", "")
 
